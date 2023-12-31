@@ -9,16 +9,19 @@ services:
       service:
         name: serverless-devs-application
       function:
-        name: gpt4all-43ei
+        name: gpt4all-rtzg
         description: Initialize
-        runtime: custom.debian10
+        runtime: custom
         environmentVariables:
           PATH: >-
-            /var/fc/lang/python3.10/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin:/opt/bin:/code:/code/bin
+            /opt/python3.8/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin:/opt/bin:/code:/code/bin
           PYTHONPATH: /opt/python:/code
           LD_LIBRARY_PATH: >-
             /code:/code/lib:/usr/local/lib:/opt/lib:/opt/php8.1/lib:/opt/php8.0/lib:/opt/php7.2/lib
         layers:
+          - acs:fc:ap-northeast-1:official:layers/Python38/versions/2
+          - >-
+            acs:fc:ap-northeast-1:official:layers/Python38-Package-Collection/versions/2
           - acs:fc:ap-northeast-1:official:layers/Python3-Flask2x/versions/2
         memorySize: 128
         cpu: 0.05
@@ -28,7 +31,7 @@ services:
         caPort: 9000
         customRuntimeConfig:
           command:
-            - python3
+            - python
           args:
             - app.py
       triggers:
